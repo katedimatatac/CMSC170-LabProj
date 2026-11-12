@@ -38,6 +38,8 @@ def main():
     #output_filename = f"{grid.name}_astar.png"
     output_filename = f"{grid.name}_dijkstra.png"
 
+    os.makedirs("images", exist_ok=True)
+
     visualize_search(                   # call visuals.py to generate solved maze figure
         grid=grid,
         scenario=scenario_sample,
