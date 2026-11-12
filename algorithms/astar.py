@@ -3,78 +3,69 @@
 
     from Group ABCD W-3L by Karl Margueritte V. Dimatatac
 
-    PL Used: Python
-
 """
 # import packages
 import math
+import heapq
 
 # class representing a node in the A* search tree
 class Node:
-    def __init__(self, matrix, g=0, h=0, parent=None, move=None):
-        self.matrix = matrix
+    def __init__(self, x, y, g=0, h=0, parent=None):
+        self.x = x
+        self.y = y
         self.g = g
         self.h = h
         self.f = g + h
         self.parent = parent
-        self.move = move
+
+    # Required for heapq to compare nodes
+    def __lt__(self, other):
+        return self.f < other.f
 
 
 # heuristic function     = Octile Distance for 8-Way Navigation  h(n) = max(dx, dy) + (sqrt(2) - 1) * min(dx, dy)
-def octile_dist(self, cardinal_cost=1.0):
-    dx = abs(node[0] - goal[0])
-    dy = abs(node[1] - goal[1])
-    diagonal_cost = cardinal_cost * math.sqrt(2)
-    return cardinal_cost * max(dx, dy) + (diagonal_cost - cardinal_cost) * min(dx, dy)
+def octile_dist(x, y, goal_x, goal_y):
+    dx = abs(x - goal_x)
+    dy = abs(y - goal_y)
+    return max(dx, dy) + (math.sqrt(2) - 1) * min(dx, dy)
 
 
-def Astar(self):        # the main search algorithm used
-    initial_h = self.octiledist(self.matrix)
-    initialNode = Node(self.matrix, g=0, h=initial_h, parent=None)
-    openList = [initialNode]
-    closedList = []
-    actions = ['N', 'S', 'W', 'E', 'NW', 'NE', 'SW', 'SE']
+# Astar coordiante-based algorithm: uses python heapq
+def Astar(grid, scenario):
+    start_x, start_y = scenario.start
+    goal_x, goal_y = scenario.goal
+    
+    initial_h = octile_dist(start_x, start_y, goal_x, goal_y)
+    start_node = Node(start_x, start_y, g=0, h=initial_h)
+    
+    openList = []
+    heapq.heappush(openList, start_node)
+    g_values = {(start_x, start_y): 0}
+    
+    # counter for the number of states expanded
+    expanded_states = 0
 
-    while len(openList)>0:
-        # bestNode = openList.removeMinF();
-        bestNode = min(openList, key=lambda node: node.f)
-        openList.remove(bestNode)
-        closedList.append(bestNode)
+    while len(openList) > 0:
+        currNode = heapq.heappop(openList)
+        expanded_states += 1  # inc when a state is evaluated
 
-        # if(GoalTest(bestNode)) return bestNode;
-        if bestNode.matrix == self.goal:
+        # goal check 
+        if (currNode.x, currNode.y) == (goal_x, goal_y):
             path = []
-            curr = bestNode
+            curr = currNode
             while curr:
-                path.append(curr)
+                path.append((curr.x, curr.y))
                 curr = curr.parent
             path.reverse()
+            # return path, total cost, and the explored coordinates
+            return path, currNode.g, list(g_values.keys())
 
-            print(f"\n--- A* Search Path Found ({len(path) - 1} moves) ---")
-            for step, node in enumerate(path):
-                print(f"Step {step} | g(n)={node.g}, h(n)={node.h}, f(n)={node.f}:")
+        for nx, ny, step_cost in grid.neighbors(currNode.x, currNode.y):
+            new_g = currNode.g + step_cost
+            if new_g < g_values.get((nx, ny), float('inf')):
+                g_values[(nx, ny)] = new_g
+                h = octile_dist(nx, ny, goal_x, goal_y)
+                nextNode = Node(nx, ny, g=new_g, h=h, parent=currNode)
+                heapq.heappush(openList, nextNode)
 
-            self.matrix = [row[:] for row in bestNode.matrix]
-            return bestNode
-
-        # for a in Actions(bestNode)
-        for a in actions:
-            res_matrix = self.test_move(bestNode.matrix, a)
-            if res_matrix is not None:
-                g = bestNode.g + 1
-                h = self.manhattan(res_matrix)
-                x = Node(res_matrix, g=g, h=h, parent=bestNode, move=a)
-
-                in_open = any(node.matrix == x.matrix for node in openList)
-                in_closed = any(node.matrix == x.matrix for node in closedList)
-
-                if (not in_open and not in_closed):
-                    openList.append(x)
-                elif in_open:
-                    duplicate = next(node for node in openList if node.matrix == x.matrix)
-                    if x.f < duplicate.f:
-                        openList.remove(duplicate)
-                        openList.append(x)
-
-    print("No solution found.")
-    return None
+    return None, 0, list(g_values.keys())
