@@ -9,7 +9,7 @@ for size in "${SIZES[@]}"; do
     
     if [ -f "$MAP" ] && [ -f "$SCEN" ]; then
         echo "----------------------------------------"
-        echo "Running Dijkstra on scale: $size"
+        echo "Running A* on scale: $size"
         echo "----------------------------------------"
         python3 main.py "$MAP" "$SCEN"
     else
