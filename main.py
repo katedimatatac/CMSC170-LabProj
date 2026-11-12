@@ -28,15 +28,16 @@ def main():
 
     scenario_num = r.randint(0, len(scenarios) - 1)         # select random scenario
     scenario_sample = scenarios[scenario_num]
-    
+    #scenario_sample = max(scenarios, key=lambda s: s.optimal_length)
+    #scenario_num = scenarios.index(scenario_sample)
     
     # run algorithm (Change method as needed)
-    path, cost, states_expanded = Astar(grid, scenario_sample)
-    path, cost, states_expanded = Dijkstra(grid, scenario_sample)
+    #path, cost, states_expanded = Astar(grid, scenario_sample)
+    #path, cost, states_expanded = Dijkstra(grid, scenario_sample)
     print_run_metrics(grid, scenarios, states_expanded)
 
     #output_filename = f"{grid.name}_astar.png"
-    output_filename = f"{grid.name}_dijkstra.png"
+    #output_filename = f"{grid.name}_dijkstra.png"
 
     os.makedirs("images", exist_ok=True)
 
