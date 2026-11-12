@@ -1,3 +1,9 @@
+"""
+    Data Loading and Parsing
+    from Group ABCD W-3L by Jose Ephraim Busayong & Allen Gabriel Casuga
+
+"""
+
 import math
 import os
 import zipfile
