@@ -31,8 +31,8 @@ def main():
     
     
     # run algorithm (Change method as needed)
-    path, cost, states_expanded = Astar(grid, scenario_sample)
-    # path, cost, states_expanded = Dijkstra(grid, scenario_sample)
+    # path, cost, states_expanded = Astar(grid, scenario_sample)
+    path, cost, states_expanded = Dijkstra(grid, scenario_sample)
     print_run_metrics(grid, scenarios, states_expanded)
 
     output_filename = f"{grid.name}_astar.png"
