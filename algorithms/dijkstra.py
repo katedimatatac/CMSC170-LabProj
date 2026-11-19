@@ -1,3 +1,9 @@
+"""
+    Dijkstra Algorithm for Maze Pathfinding
+
+    from Group ABCD W-3L by Joejean Alonzo
+
+"""
 import heapq
 from typing import Dict, List, Tuple, Set
 from dataloading import GridMap, Scenario

@@ -12,8 +12,9 @@ def main():
     global scenario_num
     global path, cost, states_expanded 
 
-    map_file = "maze-map/maze512-32-0.map"                      
-    scenario_file = "maze-scen/maze512-32-0.map.scen"
+    filespec = "1-0"            # modify this to specify the map and scenario file
+    map_file = f"maze-map/maze512-{filespec}.map"                      
+    scenario_file = f"maze-scen/maze512-{filespec}.map.scen"
 
     if len(sys.argv) == 3:
         map_file = sys.argv[1]
@@ -26,8 +27,9 @@ def main():
         print("Error: No valid scenarios found for this map instance!")
         return
 
-    scenario_num = r.randint(0, len(scenarios) - 1)         # select random scenario
-    scenario_sample = scenarios[scenario_num]
+    #       # select random scenario
+    scenario_num = r.randint(0, len(scenarios) - 1] #scenarios[r.randint(0, len(scenarios) - 1)]
+    scenario_num = scenarios.index(scenario_sample)
     
     
     # run algorithm (Change method as needed)
@@ -40,7 +42,9 @@ def main():
     #output_filename = f"{grid.name}_dijkstra.png"
     output_filename = f"{grid.name}_greedy.png"
 
+    print_run_metrics(grid, scenarios, states_expanded)
     os.makedirs("images", exist_ok=True)
+
 
     visualize_search(                   # call visuals.py to generate solved maze figure
         grid=grid,
