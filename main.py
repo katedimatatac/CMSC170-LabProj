@@ -6,9 +6,15 @@ from dataloading import load_instance
 from sampling import sample_scenarios_systematic
 from algorithms.astar import Astar
 from algorithms.dijkstra import Dijkstra
-# from algorithms.gbfs import GBFS
-# from algorithms.bfs import BFS
+from algorithms.bfs import BFS
+from algorithms.greedy import Greedy
 
+ALGORITHMS = {
+    "astar": Astar,
+    "dijkstra": Dijkstra,
+    "bfs": BFS,
+    "greedy": Greedy
+}
 
 def main():
     corr_widths = {1,2,4,8,16,32}
