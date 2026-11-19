@@ -5,20 +5,36 @@ from visuals import visualize_search
 from dataloading import load_instance
 from algorithms.astar import Astar
 from algorithms.dijkstra import Dijkstra  
+from algorithms.bfs import BFS
+from algorithms.greedy import Greedy
+
+ALGORITHMS = {
+    "astar": Astar,
+    "dijkstra": Dijkstra,
+    "bfs": BFS,
+    "greedy": Greedy
+}
 
 
 def main():
-    global scenario_sample 
+    global scenario_sample
     global scenario_num
-    global path, cost, states_expanded 
+    global path, cost, states_expanded
 
     filespec = "1-0"            # modify this to specify the map and scenario file
-    map_file = f"maze-map/maze512-{filespec}.map"                      
+    map_file = f"maze-map/maze512-{filespec}.map"
     scenario_file = f"maze-scen/maze512-{filespec}.map.scen"
+    algo_name = "astar"         # default algorithm
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         map_file = sys.argv[1]
         scenario_file = sys.argv[2]
+    if len(sys.argv) >= 4:
+        algo_name = sys.argv[3].lower()
+
+    if algo_name not in ALGORITHMS:
+        print(f"Error: unknown algorithm '{algo_name}'. Choose from: {', '.join(ALGORITHMS)}")
+        return
 
     print(f"Loading instance from {map_file} and {scenario_file}...")
     grid, scenarios = load_instance(map_file, scenario_file)
@@ -27,28 +43,24 @@ def main():
         print("Error: No valid scenarios found for this map instance!")
         return
 
-    #       # select random scenario
-    scenario_num = r.randint(0, len(scenarios) - 1] #scenarios[r.randint(0, len(scenarios) - 1)]
-    scenario_num = scenarios.index(scenario_sample)
-    
-    
-    # run algorithm (Change method as needed)
-    path, cost, states_expanded = Astar(grid, scenario_sample)
-    output_filename = f"{grid.name}_astar.png"
+    # select random scenario
+    scenario_num = r.randint(0, len(scenarios) - 1)
+    scenario_sample = scenarios[scenario_num]
 
-    # path, cost, states_expanded = Dijkstra(grid, scenario_sample)
-    # output_filename = f"{grid.name}_dijkstra.png"
+    # run the chosen algorithm
+    print(f"Running {algo_name}...")
+    path, cost, states_expanded = ALGORITHMS[algo_name](grid, scenario_sample)
+    output_filename = f"{grid.name}_{algo_name}.png"
 
     print_run_metrics(grid, scenarios, states_expanded)
     os.makedirs("images", exist_ok=True)
-
 
     visualize_search(                   # call visuals.py to generate solved maze figure
         grid=grid,
         scenario=scenario_sample,
         explored_coords=states_expanded,
         path=path,
-        output_dir="images",                # generated images will be saved in "images" directory 
+        output_dir="images",
         filename=output_filename
     )
 
