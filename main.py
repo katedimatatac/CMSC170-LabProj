@@ -28,7 +28,7 @@ def main():
         return
 
     #       # select random scenario
-    scenario_sample = scenarios[3391] #scenarios[r.randint(0, len(scenarios) - 1)]
+    scenario_num = r.randint(0, len(scenarios) - 1] #scenarios[r.randint(0, len(scenarios) - 1)]
     scenario_num = scenarios.index(scenario_sample)
     
     
@@ -36,14 +36,12 @@ def main():
     path, cost, states_expanded = Astar(grid, scenario_sample)
     output_filename = f"{grid.name}_astar.png"
 
-
     # path, cost, states_expanded = Dijkstra(grid, scenario_sample)
     # output_filename = f"{grid.name}_dijkstra.png"
 
     print_run_metrics(grid, scenarios, states_expanded)
+    os.makedirs("images", exist_ok=True)
 
-    
-    
 
     visualize_search(                   # call visuals.py to generate solved maze figure
         grid=grid,

@@ -1,0 +1,3 @@
+def Greedy():
+
+    return None
