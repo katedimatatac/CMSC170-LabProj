@@ -5,7 +5,7 @@ from visuals import visualize_search
 from dataloading import load_instance
 from algorithms.astar import Astar
 from algorithms.dijkstra import Dijkstra  
-
+from algorithms.greedy import Greedy
 
 def main():
     global scenario_sample 
@@ -33,11 +33,14 @@ def main():
     
     
     # run algorithm (Change method as needed)
-    path, cost, states_expanded = Astar(grid, scenario_sample)
-    output_filename = f"{grid.name}_astar.png"
-
+    # path, cost, states_expanded = Astar(grid, scenario_sample)
     # path, cost, states_expanded = Dijkstra(grid, scenario_sample)
-    # output_filename = f"{grid.name}_dijkstra.png"
+    path, cost, states_expanded = Greedy(grid, scenario_sample)
+    print_run_metrics(grid, scenarios, states_expanded)
+
+    #output_filename = f"{grid.name}_astar.png"
+    #output_filename = f"{grid.name}_dijkstra.png"
+    output_filename = f"{grid.name}_greedy.png"
 
     print_run_metrics(grid, scenarios, states_expanded)
     os.makedirs("images", exist_ok=True)
