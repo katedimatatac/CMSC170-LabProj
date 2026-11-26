@@ -1,6 +1,7 @@
 import random
 from typing import List, Tuple
 
+from dataloading import Scenario
 
 def sample_scenarios_systematic(
     scenarios: List[Scenario],
