@@ -42,11 +42,10 @@ def main():
 
         # Register algorithms to evaluate (uncomment GBFS and BFS once imported)
         algorithms = {
-            "Dijkstra": Dijkstra,
-            "Astar": Astar,
-            
-            # "GBFS": GBFS,
-            # "BFS": BFS,
+            # "Dijkstra": Dijkstra,
+            # "Astar": Astar,
+            "Greedy": Greedy,
+            "BFS": BFS,
         }
 
         for algo_name, search_fn in algorithms.items():

@@ -8,12 +8,7 @@ def sample_scenarios_systematic(
     target_count: int = 100,
     seed: int = 67,
 ) -> List[Tuple[int, Scenario]]:
-    """Systematically samples `target_count` valid scenarios across the entire .scen file
-
-    using step size k = round(total_valid / target_count).
-
-    Returns a list of (scenario_index, Scenario) tuples sorted by scenario index.
-    """
+    
     # 1. Filter out trivial start == goal cases while keeping original 0-based indices
     valid_scenarios: List[Tuple[int, Scenario]] = [
         (idx, scen) for idx, scen in enumerate(scenarios) if scen.optimal_length > 0
@@ -23,7 +18,7 @@ def sample_scenarios_systematic(
     if total_valid <= target_count:
         return valid_scenarios
 
-    # 2. Compute rounded step size k = round(N / 200)
+    # 2. Compute rounded step size k = round(N / 100)
     k = max(1, round(total_valid / target_count))
 
     # 3. Pick a random starting offset within the first interval [0, k - 1]

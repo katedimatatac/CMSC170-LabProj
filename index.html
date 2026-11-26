@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[ABCD] CMSC 170 Lab Project — Milestones</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #1e293b;
+      --muted: #475569;
+      --accent: #2563eb;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    header h1 {
+      font-size: 1.875rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    nav a:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .card ul {
+      padding-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card li {
+      margin-bottom: 0.35rem;
+    }
+
+    .report-details {
+      background: #f1f5f9;
+      border-left: 3px solid var(--accent);
+      padding: 0.85rem 1rem;
+      border-radius: 4px;
+      font-size: 0.925rem;
+      color: var(--muted);
+    }
+
+    .report-details p + p {
+      margin-top: 0.4rem;
+    }
+
+    footer {
+      margin-top: 2rem;
+      padding: 1rem 1.25rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #1e40af;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>[ABCD] CMSC 170 Lab Project — Milestones</h1>
+      <p>
+        The project runs over four progress-report milestones followed by presentation day.
+        Each milestone shall be presented during lab. Make sure to push your latest work to
+        the repository by the deadline. Due dates will be announced.
+      </p>
+    </header>
+
+    <nav aria-label="Milestone navigation">
+      <a href="#milestone-1">Milestone 1</a>
+      <a href="#milestone-2">Milestone 2</a>
+      <a href="#milestone-3">Milestone 3</a>
+      <a href="#milestone-4">Milestone 4</a>
+      <a href="#presentation-day">Presentation Day</a>
+    </nav>
+
+    <main>
+      <!-- Milestone 1 -->
+      <section id="milestone-1" class="card">
+        <h2>1. Milestone 1: Proposal and Setup</h2>
+        <ul>
+          <li>Group name, and members</li>
+          <li>Chosen dataset with source</li>
+          <li>The three or more methods you plan to compare</li>
+          <li>GitHub repository created with the instructor added as a collaborator</li>
+        </ul>
+        <div class="report-details">
+          <p><strong>What was done:</strong> <!-- Paste Milestone 1 tab content here --></p>
+          <p><strong>Who did it:</strong> <!-- Team member contributions --></p>
+          <p><strong>Problems encountered:</strong> <!-- Issues & blockers --></p>
+          <p><strong>Plan for next milestone:</strong> <!-- Next steps --></p>
+        </div>
+      </section>
+
+      <!-- Milestone 2 -->
+      <section id="milestone-2" class="card">
+        <h2>2. Milestone 2: Data Preparation and Implementation</h2>
+        <ul>
+          <li>Data loading and preprocessing code, written from scratch</li>
+          <li>Train/test split or cross-validation plan, and chosen evaluation metrics</li>
+          <li>Working from-scratch implementations of at least two methods</li>
+          <li>Initial results on the dataset</li>
+        </ul>
+        <div class="report-details">
+          <p><strong>What was done:</strong> <!-- Paste Milestone 2 tab content here --></p>
+          <p><strong>Who did it:</strong> <!-- Team member contributions --></p>
+          <p><strong>Problems encountered:</strong> <!-- Issues & blockers --></p>
+          <p><strong>Plan for next milestone:</strong> <!-- Next steps --></p>
+        </div>
+      </section>
+
+      <!-- Milestone 3 -->
+      <section id="milestone-3" class="card">
+        <h2>3. Milestone 3: Comparison</h2>
+        <ul>
+          <li>Working from-scratch implementations of all methods</li>
+          <li>Your own implementation of the evaluation metrics</li>
+          <li>Comparison of all methods, with tables and graphs</li>
+        </ul>
+        <div class="report-details">
+          <p><strong>What was done:</strong> <!-- Paste Milestone 3 tab content here --></p>
+          <p><strong>Who did it:</strong> <!-- Team member contributions --></p>
+          <p><strong>Problems encountered:</strong> <!-- Issues & blockers --></p>
+          <p><strong>Plan for next milestone:</strong> <!-- Next steps --></p>
+        </div>
+      </section>
+
+      <!-- Milestone 4 -->
+      <section id="milestone-4" class="card">
+        <h2>4. Milestone 4: Full Results</h2>
+        <ul>
+          <li>All methods implemented and tuned</li>
+          <li>Complete comparison tables and figures</li>
+          <li>Complete GitHub project page</li>
+        </ul>
+        <div class="report-details">
+          <p><strong>What was done:</strong> <!-- Paste Milestone 4 tab content here --></p>
+          <p><strong>Who did it:</strong> <!-- Team member contributions --></p>
+          <p><strong>Problems encountered:</strong> <!-- Issues & blockers --></p>
+          <p><strong>Plan for next milestone:</strong> <!-- Final presentation preparation --></p>
+        </div>
+      </section>
+
+      <!-- Presentation Day -->
+      <section id="presentation-day" class="card">
+        <h2>5. Presentation Day</h2>
+        <ul>
+          <li>Final presentation and Q&amp;A</li>
+          <li>Final project page and repository (no changes accepted after the deadline)</li>
+          <li>Peer evaluation forms submitted by each member</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <strong>Progress Report Note:</strong> Each progress report should state what was done,
+      who did it, any problems encountered, and the plan for the next milestone.
+    </footer>
+  </div>
+</body>
+</html>

@@ -12,6 +12,7 @@
 ---
 
 ## Project Description
+Maze Pathfinding Algorithms
 
 ---
 
