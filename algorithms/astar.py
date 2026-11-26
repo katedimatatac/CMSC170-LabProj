@@ -1,29 +1,38 @@
 import heapq
-import math
 from typing import Dict, List, Set, Tuple
 from dataloading import GridMap, Scenario
+from tuning import get_heuristic, make_tie_key
 
-SQRT2_MINUS_1 = math.sqrt(2) - 1.0  # Precompute constant once
 
+def Astar(
+    grid: GridMap,
+    scenario: Scenario,
+    heuristic: str = "octile",
+    tie_breaker: str = "low_h",
+) -> Tuple[List[Tuple[int, int]], float, Set[Tuple[int, int]]]:
+    """A* search.
 
-def Astar(grid: GridMap, scenario: Scenario) -> Tuple[List[Tuple[int, int]], float, Set[Tuple[int, int]]]:
+    heuristic   : "octile" | "euclidean" | "manhattan"
+    tie_breaker : "fifo" | "high_g" | "low_h"  (how equal-f nodes are ordered)
+    Defaults (octile + low_h) match the original behaviour.
+    """
+    h_fn = get_heuristic(heuristic)
     start = scenario.start
     goal = scenario.goal
     goal_x, goal_y = goal
 
-    dx = abs(start[0] - goal_x)
-    dy = abs(start[1] - goal_y)
-    start_h = (dx if dx > dy else dy) + SQRT2_MINUS_1 * (dy if dx > dy else dx)
-
-    # Tuple: (f_cost, h_cost, g_cost, x, y) -> tie-breaks cleanly on lower h_cost
-    pq = [(start_h, start_h, 0.0, start[0], start[1])]
+    order = 0
+    start_h = h_fn(start[0], start[1], goal_x, goal_y)
+    # Heap item: (f, tie_key, order, g, x, y). `order` is unique, so ties never
+    # fall through to comparing g/x/y.
+    pq = [(round(start_h, 9), make_tie_key(tie_breaker, 0.0, start_h, order), order, 0.0, start[0], start[1])]
 
     g_costs: Dict[Tuple[int, int], float] = {start: 0.0}
     old_set: Dict[Tuple[int, int], Tuple[int, int]] = {}
     closed_set: Set[Tuple[int, int]] = set()
 
     while pq:
-        f_cost, h_cost, curr_g, cx, cy = heapq.heappop(pq)
+        _, _, _, curr_g, cx, cy = heapq.heappop(pq)
         currpos = (cx, cy)
 
         if currpos == goal:
@@ -43,12 +52,12 @@ def Astar(grid: GridMap, scenario: Scenario) -> Tuple[List[Tuple[int, int]], flo
                 g_costs[nbpos] = new_g
                 old_set[nbpos] = currpos
 
-                # Inline octile distance (avoids Python function-call overhead)
-                dx = abs(nx - goal_x)
-                dy = abs(ny - goal_y)
-                h = (dx if dx > dy else dy) + SQRT2_MINUS_1 * (dy if dx > dy else dx)
-
-                heapq.heappush(pq, (new_g + h, h, new_g, nx, ny))
+                h = h_fn(nx, ny, goal_x, goal_y)
+                order += 1
+                # round(f, 9): mathematically equal f values (e.g. sums of sqrt(2))
+                # can differ by ~1e-15 in floating point, which would hide ties.
+                f = round(new_g + h, 9)
+                heapq.heappush(pq, (f, make_tie_key(tie_breaker, new_g, h, order), order, new_g, nx, ny))
 
     if goal not in g_costs:
         return [], float('inf'), closed_set
