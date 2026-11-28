@@ -7,8 +7,8 @@ Usage:
 """
 import argparse
 
-from dataloading import load_instance
-from sampling import sample_scenarios_systematic
+from data.dataloading import load_instance
+from data.sampling import sample_scenarios_systematic
 from algorithms.astar import Astar
 from algorithms.greedy import Greedy
 from tuning import evaluate_method, print_markdown_table

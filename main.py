@@ -1,9 +1,9 @@
 import os
 import sys
 import time
-from visuals import visualize_search
-from dataloading import load_instance
-from sampling import sample_scenarios_systematic
+from eval.visuals import visualize_search
+from data.dataloading import load_instance
+from data.sampling import sample_scenarios_systematic
 from algorithms.astar import Astar
 from algorithms.dijkstra import Dijkstra
 from algorithms.bfs import BFS

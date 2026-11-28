@@ -1,7 +1,7 @@
 import heapq
 from typing import Dict, List, Set, Tuple
-from dataloading import GridMap, Scenario
-from tuning import get_heuristic, make_tie_key
+from data.dataloading import GridMap, Scenario
+from eval.tuning import get_heuristic, make_tie_key
 
 
 def Astar(

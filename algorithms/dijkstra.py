@@ -6,7 +6,7 @@
 """
 import heapq
 from typing import Dict, List, Tuple, Set
-from dataloading import GridMap, Scenario
+from data.dataloading import GridMap, Scenario
 
 def Dijkstra(grid: GridMap, scenario: Scenario) -> Tuple[List[Tuple[int, int]], float, Set[Tuple[int, int]]]:
     start = scenario.start
