@@ -1,2 +1,6 @@
 **/.DS_Store
-**/.png
+**/*.png
+__pycache__/
+*.py[cod]
+.venv/
+venv/
